@@ -1,0 +1,136 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import type { Language } from "../i18n/translations";
+import { translations } from "../i18n/translations";
+
+interface Props {
+  language: Language;
+}
+
+const { language } = Astro.props;
+const text = translations[language];
+const otherLanguageAddress = language === "en" ? "/tr/" : "/";
+const formEndpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? "";
+const currentYear = new Date().getFullYear();
+---
+
+<BaseLayout language={language}>
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href={language === "en" ? "/" : "/tr/"}>Grazeen Studios</a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="#product">{text.navProduct}</a>
+        <a href="#how-it-works">{text.navHowItWorks}</a>
+        <a href="#about">{text.navAbout}</a>
+        <a href="#contact">{text.navContact}</a>
+        <a
+          class="language-switch"
+          href={otherLanguageAddress}
+          hreflang={language === "en" ? "tr" : "en"}
+          aria-label={text.switchLanguageName}>{text.switchLanguageLabel}</a
+        >
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">{text.heroEyebrow}</p>
+        <h1>{text.heroTitle}</h1>
+        <p class="lead">{text.heroText}</p>
+        <div class="button-row">
+          <a class="button button-primary" href="#contact">{text.heroPrimaryButton}</a>
+          <a class="button button-quiet" href="#how-it-works">{text.heroSecondaryButton}</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="product" class="section">
+      <div class="container">
+        <h2>{text.productTitle}</h2>
+        <p class="section-intro">{text.productIntro}</p>
+        <div class="card-grid">
+          {
+            text.capabilities.map((capability) => (
+              <article class="card">
+                <span class={`status status-${capability.status}`}>
+                  {capability.status === "working" ? text.statusWorking : text.statusInDevelopment}
+                </span>
+                <h3>{capability.title}</h3>
+                <p>{capability.text}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="section section-panel">
+      <div class="container">
+        <h2>{text.howTitle}</h2>
+        <p class="section-intro">{text.howIntro}</p>
+        <ol class="step-row">
+          {
+            text.steps.map((step, stepIndex) => (
+              <li class={`step ${stepIndex === 2 ? "step-human" : ""}`}>
+                <span class="step-label">{step.label}</span>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </li>
+            ))
+          }
+        </ol>
+        <p class="note">{text.howNote}</p>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="container narrow">
+        <h2>{text.aboutTitle}</h2>
+        {text.aboutParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </section>
+
+    <section id="contact" class="section section-panel">
+      <div class="container narrow">
+        <h2>{text.contactTitle}</h2>
+        <p class="section-intro">{text.contactIntro}</p>
+        {
+          formEndpoint ? (
+            <form class="request-form" method="POST" action={formEndpoint}>
+              <input type="hidden" name="_subject" value="Disko demo request" />
+              <input type="text" name="_gotcha" class="trap" tabindex="-1" autocomplete="off" />
+              <label>
+                <span>{text.formName}</span>
+                <input type="text" name="name" required autocomplete="name" />
+              </label>
+              <label>
+                <span>{text.formEmail}</span>
+                <input type="email" name="email" required autocomplete="email" />
+              </label>
+              <label>
+                <span>{text.formOrganisation}</span>
+                <input type="text" name="organisation" autocomplete="organization" />
+              </label>
+              <label>
+                <span>{text.formMessage}</span>
+                <textarea name="message" rows="4" placeholder={text.formMessagePlaceholder} />
+              </label>
+              <button class="button button-primary" type="submit">{text.formSubmit}</button>
+              <p class="fine-print">{text.formPrivacy}</p>
+            </form>
+          ) : (
+            <p class="note">{text.formUnavailable}</p>
+          )
+        }
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <span>© {currentYear} Grazeen Studios. {text.footerRights}</span>
+    </div>
+  </footer>
+</BaseLayout>

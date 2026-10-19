@@ -1,0 +1,39 @@
+---
+import "../styles/global.css";
+import type { Language } from "../i18n/translations";
+import { translations } from "../i18n/translations";
+
+interface Props {
+  language: Language;
+}
+
+const { language } = Astro.props;
+const text = translations[language];
+const siteOrigin = Astro.site?.origin ?? "https://grazeenstudios.github.io";
+const englishAddress = `${siteOrigin}/`;
+const turkishAddress = `${siteOrigin}/tr/`;
+const currentAddress = language === "en" ? englishAddress : turkishAddress;
+---
+
+<!doctype html>
+<html lang={text.htmlLanguage}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{text.pageTitle}</title>
+    <meta name="description" content={text.pageDescription} />
+    <meta name="theme-color" content="#0f0f0f" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={currentAddress} />
+    <link rel="alternate" hreflang="en" href={englishAddress} />
+    <link rel="alternate" hreflang="tr" href={turkishAddress} />
+    <link rel="alternate" hreflang="x-default" href={englishAddress} />
+    <meta property="og:title" content={text.pageTitle} />
+    <meta property="og:description" content={text.pageDescription} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={currentAddress} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
