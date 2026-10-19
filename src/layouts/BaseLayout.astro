@@ -24,6 +24,8 @@ const currentAddress = language === "en" ? englishAddress : turkishAddress;
     <meta name="description" content={text.pageDescription} />
     <meta name="theme-color" content="#0f0f0f" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="canonical" href={currentAddress} />
     <link rel="alternate" hreflang="en" href={englishAddress} />
     <link rel="alternate" hreflang="tr" href={turkishAddress} />
@@ -32,6 +34,8 @@ const currentAddress = language === "en" ? englishAddress : turkishAddress;
     <meta property="og:description" content={text.pageDescription} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={currentAddress} />
+    <meta property="og:image" content={`${siteOrigin}/og-image.png`} />
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
     <slot />

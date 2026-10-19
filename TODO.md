@@ -23,7 +23,12 @@
 5. Contact: demo request, plus press/investor contact
 6. Later: downloadable one-pager or deck behind an email form
 
-## Logo (owner task)
+## Logo status
+- Chosen (2026-10-19): ChatGPT-generated quadcopter mark, amber on dark. In use as header mark, favicon, app icons and social share image (`public/`).
+- The vector (`logo-mark.svg`) is an automatic trace of the picture, good for web, not for print. A designer should redraw it (check originality too: drone-from-above marks are common).
+- Colors: amber #F2C94C, near-black #0F0F0F. Wordmark is plain text in the system font until a designer picks one.
+
+## Logo (owner task, original notes)
 - Try first: Recraft (vector/SVG output), Ideogram (good with text in logos), Looka (quick brand kit)
 - Ask for 3-5 directions, pick one, then hand it to a designer to refine
 - Need back from the logo: SVG, light and dark versions, favicon

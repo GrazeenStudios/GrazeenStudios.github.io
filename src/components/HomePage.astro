@@ -17,7 +17,10 @@ const currentYear = new Date().getFullYear();
 <BaseLayout language={language}>
   <header class="site-header">
     <div class="container header-row">
-      <a class="brand" href={language === "en" ? "/" : "/tr/"}>Grazeen Studios</a>
+      <a class="brand" href={language === "en" ? "/" : "/tr/"}>
+        <img class="brand-mark" src="/logo-mark.svg" alt="" width="30" height="28" />
+        <span>Grazeen Studios</span>
+      </a>
       <nav class="site-nav" aria-label="Main">
         <a href="#product">{text.navProduct}</a>
         <a href="#how-it-works">{text.navHowItWorks}</a>
