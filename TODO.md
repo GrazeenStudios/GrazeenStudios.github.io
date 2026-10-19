@@ -34,7 +34,7 @@
 - [x] Pages deploy workflow (`.github/workflows/deploy.yml`), reads the form endpoint from the repo variable `FORM_ENDPOINT`
 
 ## Open questions
-- [ ] Make the repo public (free Pages needs it), then in Settings > Pages set Source to GitHub Actions
+- [x] Repo public, Pages source set to GitHub Actions, first deploy live at https://grazeenstudios.github.io/ (and /tr/)
 - [ ] Sign up at the form service (Formspree or Web3Forms) with the mailbox that should get requests; add the endpoint URL as repo variable `FORM_ENDPOINT` (not committed)
 - [ ] Until `FORM_ENDPOINT` is set the contact section shows "form not connected yet"
 - [ ] Owner to check the "Working" / "In development" chips on the four product cards match reality
