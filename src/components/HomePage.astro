@@ -98,7 +98,13 @@ const currentYear = new Date().getFullYear();
         <p class="section-intro">{text.contactIntro}</p>
         {
           formEndpoint ? (
-            <form class="request-form" method="POST" action={formEndpoint}>
+            <form
+              id="request-form"
+              class="request-form"
+              method="POST"
+              action={formEndpoint}
+              data-sending-text={text.formSending}
+            >
               <input type="hidden" name="_subject" value="Disko demo request" />
               <input type="text" name="_gotcha" class="trap" tabindex="-1" autocomplete="off" />
               <label>
@@ -117,6 +123,7 @@ const currentYear = new Date().getFullYear();
                 <span>{text.formMessage}</span>
                 <textarea name="message" rows="4" placeholder={text.formMessagePlaceholder} />
               </label>
+              <p id="form-error" class="form-error" role="alert" hidden>{text.formError}</p>
               <button class="button button-primary" type="submit">{text.formSubmit}</button>
               <p class="fine-print">{text.formPrivacy}</p>
             </form>
@@ -124,6 +131,10 @@ const currentYear = new Date().getFullYear();
             <p class="note">{text.formUnavailable}</p>
           )
         }
+        <div id="form-success" class="form-success" role="status" tabindex="-1" hidden>
+          <h3>{text.formSuccessTitle}</h3>
+          <p>{text.formSuccessText}</p>
+        </div>
       </div>
     </section>
   </main>
@@ -134,3 +145,39 @@ const currentYear = new Date().getFullYear();
     </div>
   </footer>
 </BaseLayout>
+
+<script>
+  const requestForm = document.querySelector<HTMLFormElement>("#request-form");
+  const successPanel = document.querySelector<HTMLElement>("#form-success");
+  const errorMessage = document.querySelector<HTMLElement>("#form-error");
+  const submitButton = requestForm?.querySelector<HTMLButtonElement>("button[type=submit]");
+
+  if (requestForm && successPanel && errorMessage && submitButton) {
+    const originalButtonText = submitButton.textContent ?? "";
+
+    requestForm.addEventListener("submit", async (submitEvent) => {
+      submitEvent.preventDefault();
+      errorMessage.hidden = true;
+      submitButton.disabled = true;
+      submitButton.textContent = requestForm.dataset.sendingText ?? originalButtonText;
+
+      try {
+        const response = await fetch(requestForm.action, {
+          method: "POST",
+          body: new FormData(requestForm),
+          headers: { Accept: "application/json" },
+        });
+        if (!response.ok) {
+          throw new Error(`Form service answered ${response.status}`);
+        }
+        requestForm.hidden = true;
+        successPanel.hidden = false;
+        successPanel.focus();
+      } catch {
+        errorMessage.hidden = false;
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+      }
+    });
+  }
+</script>

@@ -46,6 +46,10 @@ export interface Translation {
   formMessage: string;
   formMessagePlaceholder: string;
   formSubmit: string;
+  formSending: string;
+  formSuccessTitle: string;
+  formSuccessText: string;
+  formError: string;
   formPrivacy: string;
   formUnavailable: string;
   footerRights: string;
@@ -136,6 +140,12 @@ export const translations: Record<Language, Translation> = {
     formMessage: "What would you like to see?",
     formMessagePlaceholder: "For example: line inspection for a regional utility",
     formSubmit: "Send request",
+    formSending: "Sending...",
+    formSuccessTitle: "Thank you, request received.",
+    formSuccessText:
+      "We will get back to you by email as soon as we can.",
+    formError:
+      "Something went wrong and your request was not sent. Please try again in a moment.",
     formPrivacy:
       "We use your details only to answer this request. No newsletters, no sharing.",
     formUnavailable:
@@ -226,6 +236,12 @@ export const translations: Record<Language, Translation> = {
     formMessage: "Neyi görmek istersiniz?",
     formMessagePlaceholder: "Örneğin: bölgesel bir enerji şirketi için hat denetimi",
     formSubmit: "Talebi gönder",
+    formSending: "Gönderiliyor...",
+    formSuccessTitle: "Teşekkürler, talebiniz alındı.",
+    formSuccessText:
+      "En kısa sürede size e-posta ile dönüş yapacağız.",
+    formError:
+      "Bir sorun oluştu ve talebiniz gönderilemedi. Lütfen biraz sonra tekrar deneyin.",
     formPrivacy:
       "Bilgilerinizi yalnızca bu talebi yanıtlamak için kullanırız. Bülten yok, paylaşım yok.",
     formUnavailable:
